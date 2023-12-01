@@ -92,7 +92,6 @@ def arqui():
     atualizar[0]=0
 
 
-
 def menu():
     print("")
     linha()
@@ -165,6 +164,8 @@ def pagamento(somatotal):
             print(f"total da compra: R${totalcartao:.2f}")
             print(f"Valor de cada parcela: R${cadaparcela:.2f} ")
             print("Compra realizada com sucesso")
+
+
 def compra(cliente):
     clientes[len(clientes)]=(cliente)
     compr=0
@@ -270,7 +271,7 @@ def finalizar_dia():
         arquivo.close()
 
 
-opcao=1
+opcao=1    #Codigo principal
 tabela=[]
 while opcao!=0:
     menu()
