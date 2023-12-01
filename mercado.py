@@ -36,7 +36,7 @@ def linha():
 
 def cadastro(codigo,nome,preco,quantidade,massa):
     if massa==1:
-        produto[len(produto)+1]=(f"codigo: {codigo} / preço:{preco} / quantidade: {quantidade}L/ produto: {nome} ")
+        produto[len(produto)+1]=(f"codigo: {codigo} / preço: {preco} / quantidade: {quantidade}L / produto: {nome} ")
         arquivo=open("nome.txt","a")
         arquivo.write(f"{nome}\n")
         arquivo.close()
@@ -51,7 +51,7 @@ def cadastro(codigo,nome,preco,quantidade,massa):
         arquivo.close()
         atualizar[0]=1
     if massa==2:
-        produto[len(produto)+1]=(f"codigo: {codigo} / preço:{preco} / quantidade: {quantidade}KG/ produto: {nome} ")
+        produto[len(produto)+1]=(f"codigo: {codigo} / preço: {preco} / quantidade: {quantidade}KG / produto: {nome} ")
         arquivo=open("nome.txt","a")
         arquivo.write(f"{nome}\n")
         arquivo.close()
@@ -66,7 +66,7 @@ def cadastro(codigo,nome,preco,quantidade,massa):
         arquivo.close()
         atualizar[0]=1
     if massa==3:
-        produto[len(produto)+1]=(f"codigo: {codigo} / preço:{preco} / quantidade: {quantidade} uni/ produto: {nome} ")
+        produto[len(produto)+1]=(f"codigo: {codigo} / preço: {preco} / quantidade: {quantidade} uni / produto: {nome} ")
         arquivo=open("nome.txt","a")
         arquivo.write(f"{nome}\n")
         arquivo.close()
@@ -160,11 +160,11 @@ def pagamento(somatotal):
             print("opcao invalida, tente novamente")
             parcelas=int(input("quantas vezes será parcelado? "))
         else:
-            print("Compra realizada com sucesso")
             totalcartao=somatotal+somatotal*0.0357
+            cadaparcela=totalcartao/parcelas
             print(f"total da compra: R${totalcartao:.2f}")
-
-
+            print(f"Valor de cada parcela: R${cadaparcela:.2f} ")
+            print("Compra realizada com sucesso")
 def compra(cliente):
     clientes[len(clientes)]=(cliente)
     compr=0
@@ -191,13 +191,23 @@ def compra(cliente):
         arquivo=open("massa.txt","r")
         massas=arquivo.readlines()
         if int(massas[aqui])==3:
+            tipo=("uni")
             quant=int(input("Quantidade do produto: "))
             arquivo=open("quantidade.txt","r")
             linhas=arquivo.readlines()
             if len(linhas)>0:
                 prodquant=int(linhas[aqui])-quant
             arquivo.close()
-        else:
+        if int(massas[aqui])==2:
+            item=("KG")
+            quant=float(input("Quantidade do produto: "))
+            arquivo=open("quantidade.txt","r")
+            linhas=arquivo.readlines()
+            if len(linhas)>0:
+                prodquant=float(linhas[aqui])-quant
+            arquivo.close()
+        if int(massas[aqui])==1:
+            item=("L")
             quant=float(input("Quantidade do produto: "))
             arquivo=open("quantidade.txt","r")
             linhas=arquivo.readlines()
@@ -227,7 +237,7 @@ def compra(cliente):
         arquivo.close()
         soma=preco1*quant
         somatotal=somatotal+soma
-        novostok=(f"codigo: {codigo} / preço: {preco1} / quantidade: {prodquant}\ produto: {nome1}")
+        novostok=(f"codigo: {codigo} / preço: {preco1} / quantidade: {prodquant}{item} \ produto: {nome1}")
         arquivo=open("estoque.txt","r")
         linhas=arquivo.readlines()
         if len(linhas)>0:
